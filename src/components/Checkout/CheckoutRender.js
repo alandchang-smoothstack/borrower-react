@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ModalRoot from '../Modal/ModalContainer';
+
 const CheckoutRender = (props) => {
     function createBranchOption(branch, index) {
         return <option key={index} value={index}>{branch.name}</option>;
@@ -15,7 +17,15 @@ const CheckoutRender = (props) => {
                 <td> {copy.book.publisher.name} </td>
                 <td> {copy.book.genres.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
                 <td> {copy.amount}</td>
-                <td><button type="button" className='btn' onClick={() => props.actions.checkoutBook("test", copy.branch._id, copy.book._id)}>Checkout</button></td>
+                <td><button type="button" className='btn' onClick={() => {
+                    props.modalActions.showModal({
+                        open: true,
+                        title: 'confirmation',
+                        message: 'message',
+                        confirmAction: () => { props.actions.checkoutBook(); },
+                        close: props.modalActions.hideModal
+                    }, 'confirm')
+                }}>Checkout</button></td>
             </tr>
         );
     }
@@ -71,13 +81,13 @@ const CheckoutRender = (props) => {
         <div>
             <h1>Checkout</h1>
             {content}
+            <ModalRoot />
         </div>
     );
 }
 
 CheckoutRender.propTypes = {
-    actions: PropTypes.object,
-    checkoutData: PropTypes.object
+    actions: PropTypes.object
 };
 
 export default CheckoutRender;

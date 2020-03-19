@@ -11,7 +11,7 @@ import {
   CHANGE_BRANCH
 } from '../constants/checkoutActionTypes';
 
-export default function checkoutReducer(state = {}, action) {
+export default (state = {}, action) => {
   switch (action.type) {
     case READ_BRANCHES_SUCCESSFUL:
       return { ...state, status: { requestSuccessful: true }, branchList: action.data, branchIndex: 0, copyList: [], page: 1, pageSize: 10 };
