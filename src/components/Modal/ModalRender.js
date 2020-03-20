@@ -20,7 +20,9 @@ const ModalRender = (props) => {
             <ReactModal
                 isOpen={props.modalProps.open}
                 onRequestClose={props.modalProps.close}
-                ariaHideApp={false}>
+                ariaHideApp={false}
+                className='modal-dialog modal-dialog-centered'
+            >
                 <Modal
                     closeModal={props.modalProps.close}
                     {...props.modalProps}

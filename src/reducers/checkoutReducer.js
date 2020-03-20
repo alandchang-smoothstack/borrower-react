@@ -8,7 +8,8 @@ import {
   CHECKOUT_BOOK_SUCCESSFUL,
   CHECKOUT_BOOK_PENDING,
   CHECKOUT_BOOK_FAILURE,
-  CHANGE_BRANCH
+  CHANGE_BRANCH,
+  CHANGE_PAGE
 } from '../constants/checkoutActionTypes';
 
 export default (state = {}, action) => {
@@ -20,7 +21,6 @@ export default (state = {}, action) => {
     case READ_BRANCHES_FAILURE:
       return { ...state, status: { requestFailed: true } };
     case READ_COPIES_SUCCESSFUL:
-      console.log(action.data);
       return { ...state, status: { requestSuccessful: true }, copyList: action.data.copies || [], count: action.data.count };
     case READ_COPIES_PENDING:
       return { ...state, status: { requestPending: true } };
@@ -37,6 +37,9 @@ export default (state = {}, action) => {
       return { ...state, status: { requestFailed: true } };
     case CHANGE_BRANCH:
       return { ...state, branchIndex: action.data };
+    case CHANGE_PAGE:
+      console.log(state);
+      return { ...state, pageIndex: action.data };
     default:
       return state;
   }
