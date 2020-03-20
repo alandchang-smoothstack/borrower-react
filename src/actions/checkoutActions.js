@@ -11,7 +11,8 @@ import {
     CHECKOUT_BOOK_SUCCESSFUL,
     CHECKOUT_BOOK_PENDING,
     CHECKOUT_BOOK_FAILURE,
-    CHANGE_BRANCH
+    CHANGE_BRANCH,
+    CHANGE_PAGE
 } from '../constants/checkoutActionTypes';
 
 export const readBranches = () => {
@@ -60,6 +61,12 @@ export const checkoutBook = (borrowerId, branchId, bookId) => {
 export const changeBranch = (branchIndex) => {
     return dispatch => {
         dispatch(_changeBranch(branchIndex));
+    };
+}
+
+export const changePage = (pageIndex) => {
+    return dispatch => {
+        dispatch(_changePage(pageIndex));
     };
 }
 
@@ -127,5 +134,12 @@ const _changeBranch = (branchIndex) => {
     return {
         type: CHANGE_BRANCH,
         data: branchIndex
+    };
+}
+
+const _changePage = (pageIndex) => {
+    return {
+        type: CHANGE_PAGE,
+        data: pageIndex
     };
 }
