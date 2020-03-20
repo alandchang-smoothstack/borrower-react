@@ -21,6 +21,7 @@ const ModalRender = (props) => {
                 isOpen={props.modalProps.open}
                 onRequestClose={props.modalProps.close}
                 ariaHideApp={false}
+                bodyOpenClassName='modal-open'
                 className='modal-dialog modal-dialog-centered'
             >
                 <Modal

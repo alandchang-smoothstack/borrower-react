@@ -1,9 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import * as modalActions from '../../actions/modalActions';
 import ModalRender from './ModalRender';
 
 const ModalContainer = (props) => {
@@ -21,17 +18,7 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(modalActions, dispatch)
-    }
-}
-
-ModalContainer.propTypes = {
-    actions: PropTypes.object
-};
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(ModalContainer);
