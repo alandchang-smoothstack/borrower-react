@@ -53,13 +53,13 @@ export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
     };
 }
 
-export const checkoutBook = (borrowerId, branchId, bookId) => {
+export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
     borrowerId = '5e66949385ed682e1800f4a2';
     return dispatch => {
         dispatch(_checkoutBookStarted());
         return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
-            .then(res => {
-                dispatch(_checkoutBookSuccess(res));
+            .then(() => {
+                dispatch(_checkoutBookSuccess({ data: index }));
             })
             .catch((error) => {
                 console.log(error);
