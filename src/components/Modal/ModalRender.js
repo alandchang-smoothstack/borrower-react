@@ -20,6 +20,9 @@ const ModalRender = (props) => {
                 isOpen={props.modalProps.open}
                 onRequestClose={props.modalProps.close}
                 ariaHideApp={false}
+                shouldFocusAfterRender={false}
+                overlayClassName="modal fade show"
+                bodyOpenClassName="modal-open"
                 className='modal-dialog modal-dialog-centered'
             >
                 <Modal
