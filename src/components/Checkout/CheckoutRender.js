@@ -22,7 +22,14 @@ const CheckoutRender = (props) => {
                         open: true,
                         title: `Book #${index + 1}`,
                         message: `Are you sure you want to checkout ${copy.book.title}?`,
-                        confirmAction: () => { props.actions.checkoutBook('', copy.branch._id, copy.book._id); props.modalActions.hideModal(); },
+                        confirmAction: () => {
+                            props.actions.checkoutBook({
+                                index: index,
+                                borrowerId: '',
+                                branchId: copy.branch._id,
+                                bookId: copy.book._id
+                            }); props.modalActions.hideModal();
+                        },
                         close: props.modalActions.hideModal
                     }, 'confirm')
                 }}>Checkout</button></td>
@@ -48,13 +55,13 @@ const CheckoutRender = (props) => {
                 <div>
                     <div className="form-group">
                         <label>Select a library branch:</label>
-                        <select className="form-control" value={props.checkoutData.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value) }}>
+                        <select className="form-control" value={props.checkoutData.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value); props.actions.changePage(0); }}>
                             {props.checkoutData.branchList.map((branch, index) => createBranchOption(branch, index))}
                         </select>
                     </div>
                     <div className="form-group">
                         <label>Search for a book:</label>
-                        <input className="form-control" type="text" onChange={(event) => { props.actions.changeSearch(event.target.value) }} />
+                        <input className="form-control" type="text" onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
                     </div>
                     <table className="table table-striped">
                         <thead className="thead-dark">
@@ -73,16 +80,21 @@ const CheckoutRender = (props) => {
                         </tbody>
                     </table>
                     <ReactPaginate
-                        previousLabel={'previous'}
-                        nextLabel={'next'}
+                        forcePage={props.checkoutData.pageIndex}
+                        previousLabel={'<'}
+                        nextLabel={'>'}
                         breakLabel={'...'}
-                        breakClassName={'break-me'}
-                        pageCount={props.checkoutData.pageCount}
+                        pageCount={Math.ceil(props.checkoutData.count / 10)}
                         marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={props.actions.changePage}
+                        pageRangeDisplayed={10}
+                        onPageChange={(page) => { props.actions.changePage(page.selected) }}
                         containerClassName={'pagination'}
-                        subContainerClassName={'pages pagination'}
+                        pageClassName={'page-item'}
+                        nextClassName={'page-item'}
+                        previousClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        nextLinkClassName={'page-link'}
+                        previousLinkClassName={'page-link'}
                         activeClassName={'active'}
                     />
                 </div>

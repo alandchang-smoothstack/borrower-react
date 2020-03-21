@@ -19,7 +19,7 @@ const CheckoutContainer = props => {
             const { branchList, branchIndex, searchString, pageIndex, pageSize } = { ...props.checkoutData };
             actions.readCopies(branchList[branchIndex]._id, { searchString, pageIndex, pageSize });
         }
-    }, [props.checkoutData.branchIndex, props.checkoutData.searchString, props.checkoutData.page, props.checkoutData.pageSize]);
+    }, [props.checkoutData.branchIndex, props.checkoutData.pageIndex, props.checkoutData.pageSize, props.checkoutData.searchString]);
 
     return (
         <div>

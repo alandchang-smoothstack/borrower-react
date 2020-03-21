@@ -39,9 +39,14 @@ export default (state = initialState, action) => {
     case READ_COPIES_FAILURE:
       return { ...state, checkoutData: { ...state.checkoutData, status: { requestFailed: true }, copyList: [], isSearching: false } };
     case CHECKOUT_BOOK_SUCCESSFUL: {
-      let copyList = [...state.checkoutData.copyList];
-      copyList[action.data.index] = action.data.copy;
-      return { ...state, checkoutData: { ...state.checkoutData, status: { requestSuccessful: true }, copyList: copyList } };
+      const copy = state.checkoutData.copyList[action.data];
+      let copyList = [];
+      copyList.push(...state.checkoutData.copyList.slice(0, action.data));
+      if (copy.amount > 1) {
+        copyList.push(Object.assign({}, copy, { amount: copy.amount - 1 }));
+      }
+      copyList.push(...state.checkoutData.copyList.slice(action.data + 1));
+      return { ...state, checkoutData: { ...state.checkoutData, status: { requestSuccessful: true }, copyList } };
     }
     case CHECKOUT_BOOK_PENDING:
       return { ...state, checkoutData: { ...state.checkoutData, status: { requestPending: true } } };
@@ -52,7 +57,7 @@ export default (state = initialState, action) => {
     case CHANGE_PAGE:
       return { ...state, checkoutData: { ...state.checkoutData, pageIndex: action.data } };
     case CHANGE_SEARCH:
-      return { ...state, checkoutData: { ...state.checkoutData, searchString: action.data, isSearching: true } };
+      return { ...state, checkoutData: { ...state.checkoutData, searchString: action.data, isSearching: true, pageIndex: 0 } };
     default:
       return state;
   }
