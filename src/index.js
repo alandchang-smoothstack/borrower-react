@@ -3,9 +3,12 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import configureStore from './store/configureStore';
+import 'bootstrap-css-only';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+
+
 
 const store = configureStore();
 
