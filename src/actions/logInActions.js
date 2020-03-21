@@ -8,7 +8,6 @@ import {
 } from '../constants/loginActionTypes';
 
 export const login = (borrowerId) => {
-    console.log("borrowerId: " + borrowerId);
     return dispatch => {
         dispatch(_loginStarted());
         return axios.get(`http://localhost:3000/borrowers/${borrowerId}`)
