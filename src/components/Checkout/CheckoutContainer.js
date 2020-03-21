@@ -14,11 +14,12 @@ const CheckoutContainer = props => {
         actions.readBranches();
     }, []);
     useEffect(() => {
-        const { actions } = { ...props };
-        if (props.branchIndex >= 0 && props.page >= 0 && props.pageSize >= 0) {
-            actions.readCopies(props.branchList[props.branchIndex]._id, props.page, props.pageSize);
+        if (props.checkoutData.branchIndex >= 0 && props.checkoutData.pageIndex >= 0 && props.checkoutData.pageSize >= 0) {
+            const { actions } = { ...props };
+            const { branchList, branchIndex, searchString, pageIndex, pageSize } = { ...props.checkoutData };
+            actions.readCopies(branchList[branchIndex]._id, { searchString, pageIndex, pageSize });
         }
-    }, [props.branchIndex, props.page, props.pageSize]);
+    }, [props.checkoutData.branchIndex, props.checkoutData.searchString, props.checkoutData.page, props.checkoutData.pageSize]);
 
     return (
         <div>
@@ -29,13 +30,7 @@ const CheckoutContainer = props => {
 
 const mapStateToProps = state => {
     return {
-        branchList: state.checkoutReducer.branchList,
-        branchIndex: state.checkoutReducer.branchIndex,
-        copyList: state.checkoutReducer.copyList,
-        copyIndex: state.checkoutReducer.copyIndex,
-        page: state.checkoutReducer.page,
-        pageSize: state.checkoutReducer.pageSize,
-        status: state.checkoutReducer.status
+        checkoutData: state.checkoutReducer.checkoutData
     }
 }
 
