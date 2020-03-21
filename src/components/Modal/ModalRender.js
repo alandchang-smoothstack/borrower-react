@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import modalTypes from './modalTypes';
-import PropTypes from 'prop-types';
 
 const MODAL_TYPES = {
     'alert': modalTypes.alertModal,
@@ -21,7 +20,9 @@ const ModalRender = (props) => {
                 isOpen={props.modalProps.open}
                 onRequestClose={props.modalProps.close}
                 ariaHideApp={false}
-                bodyOpenClassName='modal-open'
+                shouldFocusAfterRender={false}
+                overlayClassName="modal fade show"
+                bodyOpenClassName="modal-open"
                 className='modal-dialog modal-dialog-centered'
             >
                 <Modal
@@ -32,9 +33,5 @@ const ModalRender = (props) => {
         </div>
     );
 }
-
-ModalRender.propTypes = {
-    actions: PropTypes.object
-};
 
 export default ModalRender;

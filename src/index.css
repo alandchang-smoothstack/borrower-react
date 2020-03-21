@@ -17,3 +17,8 @@ code {
 }
 
 .modal-dialog { outline: none; }
+
+.modal {
+  display: block
+}
+

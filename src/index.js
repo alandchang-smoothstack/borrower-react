@@ -3,10 +3,15 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import configureStore from './store/configureStore';
+import 'bootstrap-css-only';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap-css-only/css/bootstrap.min.css';
+
+
+
+
 
 const store = configureStore();
 
