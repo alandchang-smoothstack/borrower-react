@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as returnActions from '../../actions/returnActions';
+import * as modalActions from '../../actions/modalActions';
 import ReturnRender from './ReturnRender';
 
 const ReturnContainer = (props) => {
@@ -30,7 +31,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(returnActions, dispatch)
+        actions: bindActionCreators(returnActions, dispatch),
+        modalActions: bindActionCreators(modalActions, dispatch)
     };
 }
 

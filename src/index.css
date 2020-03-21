@@ -15,3 +15,5 @@ code {
 .pagination a:hover {
   cursor: pointer;
 }
+
+.modal-dialog { outline: none; }
