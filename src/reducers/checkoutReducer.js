@@ -20,7 +20,6 @@ export default function checkoutReducer(state = {}, action) {
     case READ_BRANCHES_FAILURE:
       return { ...state, status: { requestFailed: true } };
     case READ_COPIES_SUCCESSFUL:
-      console.log(action.data);
       return { ...state, status: { requestSuccessful: true }, copyList: action.data.copies || [], count: action.data.count };
     case READ_COPIES_PENDING:
       return { ...state, status: { requestPending: true } };

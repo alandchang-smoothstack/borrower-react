@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CheckoutRender = (props) => {
+    console.log(props);
     function createBranchOption(branch, index) {
         return <option key={index} value={index}>{branch.name}</option>;
     }
