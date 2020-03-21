@@ -5,6 +5,7 @@ import './App.css';
 import LoginContainer from './Login/LoginContainer'
 import CheckoutContainer from './Checkout/CheckoutContainer';
 import ReturnContainer from './Return/ReturnContainer';
+import Home from './Home';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <HashRouter>
         <Switch>
           <Route path='/login' component={LoginContainer} />
+          <Route path='/home' component={Home} />
           <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/return' component={ReturnContainer} />
         </Switch>
