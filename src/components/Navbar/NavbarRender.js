@@ -7,14 +7,14 @@ const NavbarRender = (props) => {
         : null;
     return (
         <nav className="navbar navbar-dark bg-dark justify-content-between">
-            <a className="navbar-brand" href="#">HOME</a>
+            <a className="navbar-brand" href="/#">HOME</a>
             {logoutButton}
         </nav>
     );
 };
 
 NavbarRender.propTypes = {
-    actions: PropTypes.object,
+    loginActions: PropTypes.object,
 };
 
 export default NavbarRender;

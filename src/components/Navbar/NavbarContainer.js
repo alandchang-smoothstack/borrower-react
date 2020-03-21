@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -27,7 +27,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 NavbarContainer.propTypes = {
-    actions: PropTypes.object
+    loginActions: PropTypes.object
 };
 
 export default connect(
