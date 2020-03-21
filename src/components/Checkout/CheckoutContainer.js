@@ -6,17 +6,20 @@ import { bindActionCreators } from 'redux';
 import * as checkoutActions from '../../actions/checkoutActions';
 import CheckoutRender from './CheckoutRender';
 
-const CheckoutContainer = (props) => {
+import * as modalActions from '../../actions/modalActions';
+
+const CheckoutContainer = props => {
     useEffect(() => {
         const { actions } = { ...props };
         actions.readBranches();
     }, []);
     useEffect(() => {
-        const { actions } = { ...props };
-        if (props.branchIndex >= 0 && props.page >= 0 && props.pageSize >= 0) {
-            actions.readCopies(props.branchList[props.branchIndex]._id, props.page, props.pageSize);
+        if (props.checkoutData.branchIndex >= 0 && props.checkoutData.pageIndex >= 0 && props.checkoutData.pageSize >= 0) {
+            const { actions } = { ...props };
+            const { branchList, branchIndex, searchString, pageIndex, pageSize } = { ...props.checkoutData };
+            actions.readCopies(branchList[branchIndex]._id, { searchString, pageIndex, pageSize });
         }
-    }, [props.branchIndex, props.page, props.pageSize]);
+    }, [props.checkoutData.branchIndex, props.checkoutData.pageIndex, props.checkoutData.pageSize, props.checkoutData.searchString]);
 
     return (
         <div>
@@ -25,26 +28,22 @@ const CheckoutContainer = (props) => {
     );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return {
-        branchList: state.checkoutReducer.branchList,
-        branchIndex: state.checkoutReducer.branchIndex,
-        copyList: state.checkoutReducer.copyList,
-        copyIndex: state.checkoutReducer.copyIndex,
-        page: state.checkoutReducer.page,
-        pageSize: state.checkoutReducer.pageSize,
-        status: state.checkoutReducer.status
+        checkoutData: state.checkoutReducer.checkoutData
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(checkoutActions, dispatch)
+        actions: bindActionCreators(checkoutActions, dispatch),
+        modalActions: bindActionCreators(modalActions, dispatch)
     }
 }
 
 CheckoutContainer.propTypes = {
-    actions: PropTypes.object
+    actions: PropTypes.object,
+    modalActions: PropTypes.object
 };
 
 export default connect(
