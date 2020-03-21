@@ -20,9 +20,16 @@ const CheckoutRender = (props) => {
                 <td><button type="button" className="btn btn-primary" onClick={() => {
                     props.modalActions.showModal({
                         open: true,
-                        title: 'confirmation',
-                        message: 'message',
-                        confirmAction: () => { props.actions.checkoutBook(); },
+                        title: `Book #${index + 1}`,
+                        message: `Are you sure you want to checkout ${copy.book.title}?`,
+                        confirmAction: () => {
+                            props.actions.checkoutBook({
+                                index: index,
+                                borrowerId: '',
+                                branchId: copy.branch._id,
+                                bookId: copy.book._id
+                            }); props.modalActions.hideModal();
+                        },
                         close: props.modalActions.hideModal
                     }, 'confirm')
                 }}>Checkout</button></td>
@@ -32,7 +39,7 @@ const CheckoutRender = (props) => {
 
     let content = '';
 
-    if (!props.status || props.status.requestPending) {
+    if ((!props.checkoutData.status || props.checkoutData.status.requestPending) && !props.checkoutData.isSearching) {
         content = (
             <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
@@ -42,19 +49,19 @@ const CheckoutRender = (props) => {
         );
     }
 
-    if (props.status && props.status.requestSuccessful) {
+    if (props.checkoutData.status && (props.checkoutData.status.requestSuccessful || props.checkoutData.isSearching)) {
         content =
             (
                 <div>
                     <div className="form-group">
                         <label>Select a library branch:</label>
-                        <select className="form-control" value={props.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value) }}>
-                            {props.branchList.map((branch, index) => createBranchOption(branch, index))}
+                        <select className="form-control" value={props.checkoutData.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value); props.actions.changePage(0); }}>
+                            {props.checkoutData.branchList.map((branch, index) => createBranchOption(branch, index))}
                         </select>
                     </div>
                     <div className="form-group">
                         <label>Search for a book:</label>
-                        <input className="form-control" type="text" />
+                        <input className="form-control" type="text" onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
                     </div>
                     <table className="table table-striped">
                         <thead className="thead-dark">
@@ -69,27 +76,32 @@ const CheckoutRender = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {props.copyList.map((copy, index) => createCopyRow(copy, index))}
+                            {props.checkoutData.copyList.map((copy, index) => createCopyRow(copy, index))}
                         </tbody>
                     </table>
                     <ReactPaginate
-                        previousLabel={'previous'}
-                        nextLabel={'next'}
+                        forcePage={props.checkoutData.pageIndex}
+                        previousLabel={'<'}
+                        nextLabel={'>'}
                         breakLabel={'...'}
-                        breakClassName={'break-me'}
-                        pageCount={props.pageCount}
+                        pageCount={Math.ceil(props.checkoutData.count / 10)}
                         marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={props.actions.changePage}
+                        pageRangeDisplayed={10}
+                        onPageChange={(page) => { props.actions.changePage(page.selected) }}
                         containerClassName={'pagination'}
-                        subContainerClassName={'pages pagination'}
+                        pageClassName={'page-item'}
+                        nextClassName={'page-item'}
+                        previousClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        nextLinkClassName={'page-link'}
+                        previousLinkClassName={'page-link'}
                         activeClassName={'active'}
                     />
                 </div>
             );
     }
 
-    if (props.status && props.status.requestFailed) {
+    if (props.checkoutData.status && props.checkoutData.status.requestFailed) {
         content =
             (
                 <div className="alert alert-danger" role="alert">
