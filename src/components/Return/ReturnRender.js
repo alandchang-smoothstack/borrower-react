@@ -12,16 +12,19 @@ const ReturnRender = (props) => {
                 <td> {loan.book} </td>
                 <td> {loan.dateOut.getMonth()+1}/{loan.dateOut.getDate()}/{loan.dateOut.getFullYear()} </td>
                 <td> 
-                    {loan.dateDue.getMonth()+1}/{loan.dateDue.getDate()}/{loan.dateOut.getFullYear()} 
-                    {loan.pastDue? "PAST DUE!": null}
+                    {loan.dateDue.getMonth()+1}/{loan.dateDue.getDate()}/{loan.dateOut.getFullYear()} {loan.pastDue? <span className="badge badge-danger">Past Due!</span>: null}
                 </td>
-                <td><button type="button" className="btn btn-success">Return Book</button></td>
+                <td>
+                    <button type="button" className="btn btn-success" 
+                    onClick={() => props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length)}>
+                    Return Book
+                    </button>
+                </td>
             </tr>
         );
     }
 
     let content = '';
-    console.log(props);
     if (!props.loanData || props.loanData.requestPending) {
         content = (
             <div className="d-flex justify-content-center">
@@ -34,7 +37,25 @@ const ReturnRender = (props) => {
 
     if (props.loanData && props.loanData.requestSuccessful) {
         content = (
-            <div>
+            <div className="mt-3">
+                <ReactPaginate
+                forcePage={props.page? props.page-1: 0}
+                previousLabel={'<'}
+                nextLabel={'>'}
+                breakLabel={'...'}
+                pageCount={Math.ceil(props.loanData.numLoans/10)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={10}
+                onPageChange={ (page) => { props.actions.changePage(page.selected+1) } }
+                containerClassName={'pagination'}
+                pageClassName={'page-item'}
+                nextClassName={'page-item'}
+                previousClassName={'page-item'}
+                pageLinkClassName={'page-link'}
+                nextLinkClassName={'page-link'}
+                previousLinkClassName={'page-link'}
+                activeClassName={'active'}
+                />
                 <table className="table">
                     <thead>
                         <tr>
@@ -47,22 +68,9 @@ const ReturnRender = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, index))}
+                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, (props.page-1)*10+index))}
                     </tbody>
                 </table>
-                <ReactPaginate
-                previousLabel={'<'}
-                nextLabel={'>'}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={Math.ceil(props.loanData.numLoans/10)}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={10}
-                onPageChange={()=>{}}// put a function here
-                containerClassName={'pagination'}
-                subContainerClassName={'pages pagination'}
-                activeClassName={'active'}
-                />
             </div>
         );
     }
@@ -70,15 +78,15 @@ const ReturnRender = (props) => {
     if (props.loanData && props.loanData.requestFailed) {
         content =
             (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger container" role="alert">
                     An error has occured.
                 </div>
             )
     }
 
     return (
-        <div>
-            <h1>My Loans</h1>
+        <div className="container">
+            <h1 className="mt-3">My Loans</h1>
             {content}
         </div>
     );

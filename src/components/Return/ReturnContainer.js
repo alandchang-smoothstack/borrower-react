@@ -8,11 +8,11 @@ import ReturnRender from './ReturnRender';
 
 const ReturnContainer = (props) => {
 
-    // use this effect after every render
+    // use this effect everytime the page prop changes
     useEffect(() => {
         const { actions } = { ...props };
-        actions.readLoans('5e66949385ed682e1800f4a2', 1, 10);
-    }, []);
+        actions.readLoans('5e66949385ed682e1800f4a2', props.page, 10);
+    }, [props.page]);
 
     return (
         <div>
@@ -21,15 +21,13 @@ const ReturnContainer = (props) => {
     );
 }
 
-// used for collecting the correct data from the store that the component needs
 function mapStateToProps(state) {
-    console.log(state);
     return {
-        loanData: state.returnReducer.loanData
+        loanData: state.returnReducer.loanData,
+        page: state.returnReducer.page? state.returnReducer.page: 1
     };
 }
 
-// used for dispatching actions to the store
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(returnActions, dispatch)

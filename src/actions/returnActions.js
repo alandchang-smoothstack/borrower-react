@@ -10,10 +10,9 @@ import {
     CHANGE_PAGE
 } from '../constants/returnActionTypes';
 
-export const changePage = (cardNo, page, pageSize) => {
+export const changePage = (page) => {
     return dispatch => {
-        dispatch(_changePage(page, pageSize));
-        readLoans(cardNo, page, pageSize)(dispatch);
+        dispatch(_changePage(page));
     };
 }
 
@@ -31,13 +30,17 @@ export const readLoans = (cardNo, page, pageSize) => {
     };
 }
 
-export const returnBook = (loanId, cardNo, page, pageSize) => {
+export const returnBook = (loanId, cardNo, page, pageSize, numLoans) => {
     return dispatch => {
         dispatch(_returnBookStarted());
         return axios.put('http://localhost:3000/loans', { loanId })
             .then(() => {
                 dispatch(_returnBookSuccess());
-                readLoans(cardNo, page, pageSize)(dispatch);
+                if (numLoans === 1 && page > 1) {
+                    changePage(page-1)(dispatch);
+                } else {
+                    readLoans(cardNo, page, pageSize)(dispatch);
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -85,12 +88,9 @@ const _returnBookFailure = (err) => {
     };
 }
 
-const _changePage = (page, pageSize) => {
+const _changePage = (page) => {
     return {
         type: CHANGE_PAGE,
-        data: { 
-            page,
-            pageSize
-        }
+        page
     };
 }

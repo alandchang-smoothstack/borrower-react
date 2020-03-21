@@ -15,6 +15,7 @@ export default function returnReducer(state = {}, action) {
             let loans = action.data.loans.map(loan => {
                 let dateDue = new Date(loan.dateDue);
                 return {
+                    id: loan._id,
                     branch: loan.branch.name,
                     book: loan.book.title,
                     dateOut: new Date(loan.dateOut),
@@ -28,13 +29,13 @@ export default function returnReducer(state = {}, action) {
         case READ_LOANS_PENDING:
             return { ...state, loanData: { requestPending: true } };
         case RETURN_BOOK_SUCCESSFUL:
-            return { ...state, loanData: { requestSuccessful: true } };
+            return state;
         case RETURN_BOOK_FAILURE:
             return { ...state, loanData: { requestFailed: true } };
         case RETURN_BOOK_PENDING:
             return { ...state, loanData: { requestPending: true } };
         case CHANGE_PAGE:
-            return { ...state, page: action.data.page, pageSize: action.data.pageSize }
+            return { ...state, page: action.page}
         default:
             return state;
     }
