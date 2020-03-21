@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
+import ModalRoot from '../Modal/ModalContainer';
 
 const CheckoutRender = (props) => {
     function createBranchOption(branch, index) {
@@ -9,13 +11,21 @@ const CheckoutRender = (props) => {
     function createCopyRow(copy, index) {
         return (
             <tr key={index + 1}>
-                <td> {index + 1} </td>
-                <td> {copy.book.title} </td>
-                <td> {copy.book.authors.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
-                <td> {copy.book.publisher.name} </td>
-                <td> {copy.book.genres.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
-                <td> {copy.amount}</td>
-                <td><button type="button" className='btn' onClick={() => props.actions.checkoutBook("test", copy.branch._id, copy.book._id)}>Checkout</button></td>
+                <td className="align-middle"> {index + 1} </td>
+                <td className="align-middle"> {copy.book.title} </td>
+                <td className="align-middle"> {copy.book.authors.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
+                <td className="align-middle"> {copy.book.publisher.name} </td>
+                <td className="align-middle"> {copy.book.genres.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
+                <td className="align-middle"> {copy.amount}</td>
+                <td><button type="button" className="btn btn-primary" onClick={() => {
+                    props.modalActions.showModal({
+                        open: true,
+                        title: 'confirmation',
+                        message: 'message',
+                        confirmAction: () => { props.actions.checkoutBook(); },
+                        close: props.modalActions.hideModal
+                    }, 'confirm')
+                }}>Checkout</button></td>
             </tr>
         );
     }
@@ -36,11 +46,18 @@ const CheckoutRender = (props) => {
         content =
             (
                 <div>
-                    <select value={props.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value) }}>
-                        {props.branchList.map((branch, index) => createBranchOption(branch, index))}
-                    </select>
-                    <table className="table">
-                        <thead>
+                    <div className="form-group">
+                        <label>Select a library branch:</label>
+                        <select className="form-control" value={props.branchIndex} onChange={(event) => { props.actions.changeBranch(event.target.value) }}>
+                            {props.branchList.map((branch, index) => createBranchOption(branch, index))}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>Search for a book:</label>
+                        <input className="form-control" type="text" />
+                    </div>
+                    <table className="table table-striped">
+                        <thead className="thead-dark">
                             <tr>
                                 <th>ID</th>
                                 <th>Title</th>
@@ -48,12 +65,26 @@ const CheckoutRender = (props) => {
                                 <th>Publisher</th>
                                 <th>Genres</th>
                                 <th>Amount</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {props.copyList.map((copy, index) => createCopyRow(copy, index))}
                         </tbody>
                     </table>
+                    <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={props.pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={props.actions.changePage}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                    />
                 </div>
             );
     }
@@ -68,16 +99,16 @@ const CheckoutRender = (props) => {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Checkout</h1>
             {content}
+            <ModalRoot />
         </div>
     );
 }
 
 CheckoutRender.propTypes = {
-    actions: PropTypes.object,
-    checkoutData: PropTypes.object
+    actions: PropTypes.object
 };
 
 export default CheckoutRender;

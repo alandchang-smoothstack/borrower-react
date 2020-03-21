@@ -6,7 +6,9 @@ import { bindActionCreators } from 'redux';
 import * as checkoutActions from '../../actions/checkoutActions';
 import CheckoutRender from './CheckoutRender';
 
-const CheckoutContainer = (props) => {
+import * as modalActions from '../../actions/modalActions';
+
+const CheckoutContainer = props => {
     useEffect(() => {
         const { actions } = { ...props };
         actions.readBranches();
@@ -25,7 +27,7 @@ const CheckoutContainer = (props) => {
     );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return {
         branchList: state.checkoutReducer.branchList,
         branchIndex: state.checkoutReducer.branchIndex,
@@ -37,14 +39,16 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
-        actions: bindActionCreators(checkoutActions, dispatch)
+        actions: bindActionCreators(checkoutActions, dispatch),
+        modalActions: bindActionCreators(modalActions, dispatch)
     }
 }
 
 CheckoutContainer.propTypes = {
-    actions: PropTypes.object
+    actions: PropTypes.object,
+    modalActions: PropTypes.object
 };
 
 export default connect(
