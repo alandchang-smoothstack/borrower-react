@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import ModalRoot from '../Modal/ModalContainer';
 
 const ReturnRender = (props) => {
 
@@ -16,8 +17,19 @@ const ReturnRender = (props) => {
                 </td>
                 <td>
                     <button type="button" className="btn btn-success" 
-                    onClick={() => props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length)}>
-                    Return Book
+                    onClick={() => {
+                        props.modalActions.showModal({
+                            open: true,
+                            title: `Loan #${index+1} Confirmation`,
+                            message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
+                            confirmAction: () => {
+                                props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length);
+                                props.modalActions.hideModal();
+                            },
+                            close: props.modalActions.hideModal
+                        }, 'confirm');
+                    }}>
+                        Return Book
                     </button>
                 </td>
             </tr>
@@ -56,8 +68,8 @@ const ReturnRender = (props) => {
                 previousLinkClassName={'page-link'}
                 activeClassName={'active'}
                 />
-                <table className="table">
-                    <thead>
+                <table className="table table-striped">
+                    <thead className="thead-dark">
                         <tr>
                             <th></th>
                             <th>Branch</th>
@@ -88,6 +100,7 @@ const ReturnRender = (props) => {
         <div className="container">
             <h1 className="mt-3">My Loans</h1>
             {content}
+            <ModalRoot />
         </div>
     );
 }
