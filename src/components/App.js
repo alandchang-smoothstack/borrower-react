@@ -3,7 +3,8 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import CheckoutContainer from './Checkout/CheckoutContainer';
-import LoginContainer from './Login/LoginContainer'
+import LoginContainer from './Login/LoginContainer';
+import SignUpContainer from './SignUp/SignUpContainer';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/login' component={LoginContainer} />
+          <Route path='/signup' component={SignUpContainer} />
         </Switch>
       </HashRouter>
     </div>

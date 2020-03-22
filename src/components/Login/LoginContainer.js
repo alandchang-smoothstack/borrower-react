@@ -23,7 +23,7 @@ function mapStateToProps(state) {
         borrower: state.loginReducer.borrower,
         loginId: (state.loginReducer.loginId || ''),
         status: state.loginReducer.status
-    }
+    };
 };
 
 

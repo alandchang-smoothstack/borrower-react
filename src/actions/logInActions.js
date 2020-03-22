@@ -20,7 +20,7 @@ export const login = (borrowerId) => {
             }).catch(err => {
                 console.log(err);
                 dispatch(_loginFailed(err));
-            })
+            });
     };
 
 };
