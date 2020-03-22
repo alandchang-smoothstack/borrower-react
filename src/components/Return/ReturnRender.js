@@ -35,7 +35,7 @@ const ReturnRender = (props) => {
             </tr>
         );
     }
-    
+
     let content = '';
     if (!props.loanData || props.loanData.requestPending) {
         content = (

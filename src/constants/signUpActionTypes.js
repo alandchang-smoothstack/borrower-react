@@ -1,0 +1,7 @@
+//sign up action types
+export const SIGN_UP_PENDING = 'SIGN_UP_PENDING';
+export const SIGN_UP_SUCCESSFUL = 'SIGN_UP_SUCCESSFUL';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+export const SIGN_UP_NAME_INPUT = 'SIGN_UP_NAME_INPUT';
+export const SIGN_UP_PHONE_INPUT = 'SIGN_UP_PHONE_INPUT';
+export const SIGN_UP_ADDRESS_INPUT = 'SIGN_UP_ADDRESS_INPUT';

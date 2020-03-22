@@ -15,8 +15,19 @@ code {
 .pagination a:hover {
   cursor: pointer;
 }
-.modal-dialog { outline: none; }
 
 .modal {
   display: block
 }
+
+.modal-dialog { outline: none; }
+
+.btn-lg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-body {
+  padding: 0px;
+}
+
