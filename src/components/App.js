@@ -5,6 +5,7 @@ import './App.css';
 import CheckoutContainer from './Checkout/CheckoutContainer';
 import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './SignUp/SignUpContainer';
+import 'bootstrap-css-only';
 
 function App() {
   return (

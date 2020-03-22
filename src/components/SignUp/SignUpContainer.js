@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import * as signUpActions from '../../actions/signUpActions';
 import SignUpRender from './SignUpRender';
+import './signUp.css'
 
 
 const SignUpContainer = (props) => {
