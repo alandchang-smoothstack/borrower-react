@@ -10,10 +10,16 @@ const SignUpRender = (props) => {
                         <div id="login-box" className="col-md-12">
                             <form id="login-form" onSubmit={(event) => { props.actions.signUp(props.name, props.phone, props.address) }}>
                                 <h3 id="login-title">Sign Up</h3>
-                                <label className="loginLabel">Name:<input type="text" value={props.name} onChange={(event) => { props.actions.inputName(event.target.value) }} required></input></label><br></br>
-                                <label className="loginLabel"> Phone Number:<input type="tel" value={props.phone} pattern="^\d{3}-\d{3}-\d{4}$" placeholder="XXX-XXX-XXXX" onChange={(event) => { props.actions.inputPhone(event.target.value) }} required></input></label><br></br>
-                                <label className="loginLabel">Address:<input type="text" value={props.address} onChange={(event) => { props.actions.inputAddress(event.target.value) }} required></input></label><br></br>
-                                <input type="submit" className="btn btn-primary" value="Sumbit" />
+                                <div class="form-group">
+                                    <label className="loginLabel">Name:<br></br><input className="formInputField" type="text" value={props.name} onChange={(event) => { props.actions.inputName(event.target.value) }} required></input></label><br></br>
+                                </div>
+                                <div class="form-group">
+                                    <label className="loginLabel"> Phone Number:<br></br><input className="formInputField" type="tel" value={props.phone} pattern="^\d{3}-\d{3}-\d{4}$" placeholder="XXX-XXX-XXXX" onChange={(event) => { props.actions.inputPhone(event.target.value) }} required></input></label><br></br>
+                                </div>
+                                <div class="form-group">
+                                    <label className="loginLabel">Address:<br></br><input className="formInputField" type="text" value={props.address} onChange={(event) => { props.actions.inputAddress(event.target.value) }} required></input></label><br></br>
+                                </div>
+                                <input type="submit" className="btn btn-primary" value="Submit" />
                             </form >
                         </div>
                     </div>

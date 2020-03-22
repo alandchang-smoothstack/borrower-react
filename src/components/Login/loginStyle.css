@@ -15,4 +15,7 @@
 #login-title{
     text-align: center;
 }
-
+.link{
+    display: block;
+    text-align: right;
+}

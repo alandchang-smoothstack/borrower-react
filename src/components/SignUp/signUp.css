@@ -12,6 +12,11 @@
     padding-top: 35px;
     /* padding-bottom: 35px; */
 }
+#lmsLogo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 #login-title{
     text-align: center;
 }
@@ -19,7 +24,7 @@
     display: block;
     text-align: center;
 }
-.btn btn-primary{
-    margin: 0 auto;
-    display: block;
+.formInputField{
+    width: 80%;
 }
+
