@@ -1,7 +1,7 @@
 import {
     LOGIN_ATTEMPT_FAILURE, LOGIN_ATTEMPT_PENDING,
     LOGIN_ATTEMPT_SUCCESSFUL, LOGIN_INPUT_CHANGE
-} from '../constants/loginActionTypes'
+} from '../constants/loginActionTypes';
 
 
 export default function loginReducer(state = {}, action) {
@@ -11,7 +11,7 @@ export default function loginReducer(state = {}, action) {
         case LOGIN_ATTEMPT_PENDING:
             return { ...state, status: { loginPending: true } };
         case LOGIN_ATTEMPT_SUCCESSFUL:
-            return { ...state, status: { loginSuccesful: true }, borrower: action.data };
+            return { ...state, status: { loginSuccesful: true }, borrower: action.data, loggedIn: true };
         case LOGIN_INPUT_CHANGE:
             return { ...state, loginId: action.data }
         default:
