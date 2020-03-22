@@ -11,7 +11,7 @@ export default function loginReducer(state = {}, action) {
         case LOGIN_ATTEMPT_PENDING:
             return { ...state, status: { loginPending: true } };
         case LOGIN_ATTEMPT_SUCCESSFUL:
-            return { ...state, stauts: { loginSuccesful: true }, borrower: action.data, loggedIn: true };
+            return { ...state, status: { loginSuccesful: true }, borrower: action.data, loggedIn: true };
         case LOGIN_INPUT_CHANGE:
             return { ...state, loginId: action.data }
         default:
