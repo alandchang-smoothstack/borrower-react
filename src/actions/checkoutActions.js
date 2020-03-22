@@ -11,7 +11,9 @@ import {
     CHECKOUT_BOOK_SUCCESSFUL,
     CHECKOUT_BOOK_PENDING,
     CHECKOUT_BOOK_FAILURE,
-    CHANGE_BRANCH
+    CHANGE_BRANCH,
+    CHANGE_PAGE,
+    CHANGE_SEARCH
 } from '../constants/checkoutActionTypes';
 
 export const readBranches = () => {
@@ -28,10 +30,19 @@ export const readBranches = () => {
     };
 }
 
-export const readCopies = (branchId, page, pageSize) => {
+export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
     return dispatch => {
+        let url = `http://localhost:3000/branches/${branchId}/copies`;
+        let query = [];
+        if (searchString && searchString.length) query.push(`title=${searchString}`);
+        if (pageIndex >= 0) query.push(`page=${pageIndex + 1}`);
+        if (pageSize) query.push(`pagesize=${pageSize}`);
+        if (query.length) {
+            url += '?';
+            url += query.join('&');
+        }
         dispatch(_readCopiesStarted());
-        return axios.get(`http://localhost:3000/branches/${branchId}/copies?page=${page}&pagesize=${pageSize}`)
+        return axios.get(url)
             .then(res => {
                 dispatch(_readCopiesSuccess(res));
             })
@@ -42,13 +53,13 @@ export const readCopies = (branchId, page, pageSize) => {
     };
 }
 
-export const checkoutBook = (borrowerId, branchId, bookId) => {
-    console.log(borrowerId + ' ' + branchId + ' ' + bookId);
+export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
+    borrowerId = '5e66949385ed682e1800f4a2';
     return dispatch => {
         dispatch(_checkoutBookStarted());
-        return axios.get(`http://www.mocky.io/v2/5e68f06a2f0000c276d8b12f`)
-            .then(res => {
-                dispatch(_checkoutBookSuccess(res));
+        return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
+            .then(() => {
+                dispatch(_checkoutBookSuccess({ data: index }));
             })
             .catch((error) => {
                 console.log(error);
@@ -60,6 +71,18 @@ export const checkoutBook = (borrowerId, branchId, bookId) => {
 export const changeBranch = (branchIndex) => {
     return dispatch => {
         dispatch(_changeBranch(branchIndex));
+    };
+}
+
+export const changePage = (pageIndex) => {
+    return dispatch => {
+        dispatch(_changePage(pageIndex));
+    };
+}
+
+export const changeSearch = (searchString) => {
+    return dispatch => {
+        dispatch(_changeSearch(searchString));
     };
 }
 
@@ -127,5 +150,19 @@ const _changeBranch = (branchIndex) => {
     return {
         type: CHANGE_BRANCH,
         data: branchIndex
+    };
+}
+
+const _changePage = (pageIndex) => {
+    return {
+        type: CHANGE_PAGE,
+        data: pageIndex
+    };
+}
+
+const _changeSearch = (searchString) => {
+    return {
+        type: CHANGE_SEARCH,
+        data: searchString
     };
 }
