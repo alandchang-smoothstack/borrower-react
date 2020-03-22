@@ -10,7 +10,8 @@ import {
   CHECKOUT_BOOK_FAILURE,
   CHANGE_BRANCH,
   CHANGE_PAGE,
-  CHANGE_SEARCH
+  CHANGE_SEARCH,
+  RESET_STATE
 } from '../constants/checkoutActionTypes';
 
 const initialState = {
@@ -58,6 +59,8 @@ export default (state = initialState, action) => {
       return { ...state, checkoutData: { ...state.checkoutData, pageIndex: action.data } };
     case CHANGE_SEARCH:
       return { ...state, checkoutData: { ...state.checkoutData, searchString: action.data, isSearching: true, pageIndex: 0 } };
+    case RESET_STATE:
+      return initialState;
     default:
       return state;
   }
