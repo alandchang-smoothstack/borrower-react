@@ -16,11 +16,11 @@ code {
   cursor: pointer;
 }
 
-.modal-dialog { outline: none; }
-
 .modal {
   display: block
 }
+
+.modal-dialog { outline: none; }
 
 .btn-lg {
   width: 100%;

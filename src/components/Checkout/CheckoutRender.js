@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import ModalRoot from '../Modal/ModalContainer';
 
 const CheckoutRender = (props) => {
+    console.log(props);
     function createBranchOption(branch, index) {
         return <option key={index} value={index}>{branch.name}</option>;
     }

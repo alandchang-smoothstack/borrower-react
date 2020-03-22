@@ -3,7 +3,6 @@ import {
     LOGIN_ATTEMPT_SUCCESSFUL, LOGIN_INPUT_CHANGE
 } from '../constants/loginActionTypes';
 
-
 export default function loginReducer(state = {}, action) {
     switch (action.type) {
         case LOGIN_ATTEMPT_FAILURE:

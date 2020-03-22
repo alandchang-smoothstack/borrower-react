@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 
+import LoginContainer from './Login/LoginContainer'
 import NavbarContainer from './Navbar/NavbarContainer';
 import CheckoutContainer from './Checkout/CheckoutContainer';
 import LoginContainer from './Login/LoginContainer';
