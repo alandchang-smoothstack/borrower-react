@@ -68,7 +68,6 @@ const ReturnRender = (props) => {
                 previousLinkClassName={'page-link'}
                 activeClassName={'active'}
                 />
-
                 <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
