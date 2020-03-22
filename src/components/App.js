@@ -6,15 +6,17 @@ import CheckoutContainer from './Checkout/CheckoutContainer';
 import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './SignUp/SignUpContainer';
 import 'bootstrap-css-only';
+import ReturnContainer from './Return/ReturnContainer';
 
 function App() {
   return (
     <div>
       <HashRouter>
         <Switch>
-          <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/login' component={LoginContainer} />
           <Route path='/signup' component={SignUpContainer} />
+          <Route path='/checkout' component={CheckoutContainer} />
+          <Route path='/return' component={ReturnContainer} />
         </Switch>
       </HashRouter>
     </div>
