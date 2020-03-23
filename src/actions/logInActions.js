@@ -12,7 +12,7 @@ import {
 export const login = (borrowerId) => {
     return dispatch => {
         dispatch(_loginStarted());
-        return axios.get(`http://localhost:3000/borrowers/${borrowerId}`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/borrowers/${borrowerId}`)
             .then(res => {
                 if (res.data.name) {
                     dispatch(_loginSuccessful(res.data));

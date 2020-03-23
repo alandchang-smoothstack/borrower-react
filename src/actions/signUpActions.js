@@ -17,7 +17,7 @@ export const signUp = (nameIn, phoneIn, addressIn) => {
             phone: phoneIn,
             address: addressIn
         }
-        return axios.post(`http://localhost:3000/borrowers/`, borrower)
+        return axios.post(`${process.env.REACT_APP_API_URL}/borrowers/`, borrower)
             .then(res => {
                 if (res.data._id) {
                     dispacth(_signUpSuccessful(res.data));

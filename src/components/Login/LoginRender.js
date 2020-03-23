@@ -16,7 +16,7 @@ const LoginRender = (props) => {
                                 <form id="login-form" onSubmit={(event) => { props.actions.login(props.loginId); event.preventDefault(); }}>
                                     <h3 id="login-title">Login</h3>
                                     {(props.status && props.status.loginFailure) ? <label id="loginFailure" >Login Failure<br></br></label> : <br></br>}
-                                    <label>BorrowerId: <input type="text" value={props.loginId} onChange={(event) => { props.actions.loginIdChange(event.target.value); console.log(props) }} required></input></label>
+                                    <label>BorrowerId: <input type="text" value={props.loginId} onChange={(event) => { props.actions.loginIdChange(event.target.value); }} required></input></label>
                                     <input type="submit" value="Submit" /><br></br>
                                     <label className="link"><a href="#/signup">Sign Up Here</a></label>
                                 </form>
