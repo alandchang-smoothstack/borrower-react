@@ -13,13 +13,14 @@ import {
     CHECKOUT_BOOK_FAILURE,
     CHANGE_BRANCH,
     CHANGE_PAGE,
-    CHANGE_SEARCH
+    CHANGE_SEARCH,
+    RESET_STATE
 } from '../constants/checkoutActionTypes';
 
 export const readBranches = () => {
     return dispatch => {
         dispatch(_readBranchesStarted());
-        return axios.get(`http://localhost:3000/branches`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/branches`)
             .then(res => {
                 dispatch(_readBranchesSuccess(res));
             })
@@ -32,7 +33,7 @@ export const readBranches = () => {
 
 export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
     return dispatch => {
-        let url = `http://localhost:3000/branches/${branchId}/copies`;
+        let url = `${process.env.REACT_APP_API_URL}/branches/${branchId}/copies`;
         let query = [];
         if (searchString && searchString.length) query.push(`title=${searchString}`);
         if (pageIndex >= 0) query.push(`page=${pageIndex + 1}`);
@@ -56,7 +57,7 @@ export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
 export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
     return dispatch => {
         dispatch(_checkoutBookStarted());
-        return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
+        return axios.post(`${process.env.REACT_APP_API_URL}/loans`, { borrowerId, branchId, bookId })
             .then(() => {
                 dispatch(_checkoutBookSuccess({ data: index }));
             })
@@ -82,6 +83,12 @@ export const changePage = (pageIndex) => {
 export const changeSearch = (searchString) => {
     return dispatch => {
         dispatch(_changeSearch(searchString));
+    };
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState());
     };
 }
 
@@ -163,5 +170,11 @@ const _changeSearch = (searchString) => {
     return {
         type: CHANGE_SEARCH,
         data: searchString
+    };
+}
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
     };
 }

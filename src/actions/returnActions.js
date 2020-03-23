@@ -9,6 +9,7 @@ import {
     RETURN_BOOK_PENDING,
     CHANGE_PAGE
 } from '../constants/returnActionTypes';
+import { RESET_STATE } from '../constants/checkoutActionTypes';
 
 export const changePage = (page) => {
     return dispatch => {
@@ -47,6 +48,12 @@ export const returnBook = (loanId, cardNo, page, pageSize, numLoans) => {
                 dispatch(_returnBookFailure(err));
             });
     };
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState());
+    }
 }
 
 const _readLoansStarted = () => {
@@ -92,5 +99,11 @@ const _changePage = (page) => {
     return {
         type: CHANGE_PAGE,
         page
+    };
+}
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
     };
 }

@@ -5,11 +5,16 @@ import {
     RETURN_BOOK_FAILURE, 
     RETURN_BOOK_SUCCESSFUL, 
     RETURN_BOOK_PENDING,
-    CHANGE_PAGE
+    CHANGE_PAGE,
+    RESET_STATE
 } from '../constants/returnActionTypes';
 
-// takes in an action and mutates the state accordingly
-export default function returnReducer(state = {}, action) {
+const initialState = {
+    page: 1,
+    pageSize: 10
+};
+
+export default function returnReducer(state = initialState, action) {
     switch(action.type) {
         case READ_LOANS_SUCCESSFUL:
             let loans = action.data.loans.map(loan => {
@@ -36,6 +41,8 @@ export default function returnReducer(state = {}, action) {
             return { ...state, loanData: { requestPending: true } };
         case CHANGE_PAGE:
             return { ...state, page: action.page}
+        case RESET_STATE:
+            return initialState;
         default:
             return state;
     }

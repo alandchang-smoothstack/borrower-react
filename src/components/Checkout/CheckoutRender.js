@@ -61,7 +61,7 @@ const CheckoutRender = (props) => {
                     </div>
                     <div className="form-group">
                         <label>Search for a book:</label>
-                        <input className="form-control" type="text" onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
+                        <input className="form-control" type="text" value={props.checkoutData.searchString} onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
                     </div>
                     <table className="table table-striped">
                         <thead className="thead-dark">
@@ -112,7 +112,7 @@ const CheckoutRender = (props) => {
 
     return (
         <div className="container">
-            <h1>Checkout</h1>
+            <h1 className="mt-3">Checkout</h1>
             {content}
             <ModalRoot />
         </div>

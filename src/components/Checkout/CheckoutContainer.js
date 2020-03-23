@@ -13,6 +13,7 @@ const CheckoutContainer = props => {
     useEffect(() => {
         const { actions } = { ...props };
         actions.readBranches();
+        return actions.resetState();
     }, []);
     useEffect(() => {
         if (props.checkoutData.branchIndex >= 0 && props.checkoutData.pageIndex >= 0 && props.checkoutData.pageSize >= 0) {
@@ -20,7 +21,7 @@ const CheckoutContainer = props => {
             const { branchList, branchIndex, searchString, pageIndex, pageSize } = { ...props.checkoutData };
             actions.readCopies(branchList[branchIndex]._id, { searchString, pageIndex, pageSize });
         }
-    }, [props.checkoutData.branchIndex, props.checkoutData.pageIndex, props.checkoutData.pageSize, props.checkoutData.searchString]);
+    }, [props.checkoutData.branchIndex, props.checkoutData.searchString, props.checkoutData.pageIndex, props.checkoutData.pageSize]);
 
     return (props.loggedIn ? <div><CheckoutRender {...props} /></div> : <Redirect to="/login" />);
 }
