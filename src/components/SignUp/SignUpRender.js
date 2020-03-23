@@ -8,8 +8,9 @@ const SignUpRender = (props) => {
                 <div id="login-row" className="row justify-content-center align-items-center">
                     <div id="login-column" className="col-md-6">
                         <div id="login-box" className="col-md-12">
-                            <form id="login-form" onSubmit={(event) => { props.actions.signUp(props.name, props.phone, props.address) }}>
+                            <form id="login-form" onSubmit={(event) => { props.actions.signUp(props.name, props.phone, props.address); event.preventDefault() }}>
                                 <h3 id="login-title">Sign Up</h3>
+                                {(props.status && props.status.signUpFailure) ? < div className="alert alert-danger" role="alert">SignUp Error!</div> : <br></br>}
                                 <div className="form-group">
                                     <label className="loginLabel">Name:<br></br><input className="formInputField" type="text" value={props.name} onChange={(event) => { props.actions.inputName(event.target.value) }} required></input></label><br></br>
                                 </div>
@@ -20,12 +21,17 @@ const SignUpRender = (props) => {
                                     <label className="loginLabel">Address:<br></br><input className="formInputField" type="text" value={props.address} onChange={(event) => { props.actions.inputAddress(event.target.value) }} required></input></label><br></br>
                                 </div>
                                 <input type="submit" className="btn btn-primary" value="Submit" />
+                                {(props.status && props.status.signUpPending) ? <div id="loadingSpinner">
+                                    <div className="spinner-border text-success" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div> : null}
                             </form >
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }
