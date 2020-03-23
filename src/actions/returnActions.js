@@ -20,7 +20,7 @@ export const changePage = (page) => {
 export const readLoans = (cardNo, page, pageSize) => {
     return dispatch => {
         dispatch(_readLoansStarted());
-        return axios.get(`http://localhost:3000/borrowers/${cardNo}/loans?page=${page}&pagesize=${pageSize}`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/borrowers/${cardNo}/loans?page=${page}&pagesize=${pageSize}`)
             .then(res => {
                 dispatch(_readLoansSuccess(res));
             })
@@ -34,7 +34,7 @@ export const readLoans = (cardNo, page, pageSize) => {
 export const returnBook = (loanId, cardNo, page, pageSize, numLoans) => {
     return dispatch => {
         dispatch(_returnBookStarted());
-        return axios.put('http://localhost:3000/loans', { loanId })
+        return axios.put(`${process.env.REACT_APP_API_URL}/loans`, { loanId })
             .then(() => {
                 dispatch(_returnBookSuccess());
                 if (numLoans === 1 && page > 1) {
