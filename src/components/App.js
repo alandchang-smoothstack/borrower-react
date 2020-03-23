@@ -5,10 +5,9 @@ import './App.css';
 import LoginContainer from './Login/LoginContainer'
 import NavbarContainer from './Navbar/NavbarContainer';
 import CheckoutContainer from './Checkout/CheckoutContainer';
-import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './SignUp/SignUpContainer';
 import ReturnContainer from './Return/ReturnContainer';
-import Home from './Home';
+import HomeContainer from './Home/HomeContainer';
 
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
         <Switch>
           <Route path='/login' component={LoginContainer} />
           <Route path='/signup' component={SignUpContainer} />
-          <Route path='/home' component={Home} />
+          <Route path='/home' component={HomeContainer} />
           <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/return' component={ReturnContainer} />
         </Switch>

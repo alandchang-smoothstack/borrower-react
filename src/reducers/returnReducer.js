@@ -8,8 +8,12 @@ import {
     CHANGE_PAGE
 } from '../constants/returnActionTypes';
 
-// takes in an action and mutates the state accordingly
-export default function returnReducer(state = {}, action) {
+const initialState = {
+    page: 1,
+    pageSize: 10
+};
+
+export default function returnReducer(state = initialState, action) {
     switch(action.type) {
         case READ_LOANS_SUCCESSFUL:
             let loans = action.data.loans.map(loan => {

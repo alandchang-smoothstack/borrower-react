@@ -6,14 +6,16 @@ import ModalRoot from '../Modal/ModalContainer';
 const ReturnRender = (props) => {
 
     function createLoanRow(loan, index) {
+        let dateOut = new Date(loan.dateOut);
+        let dateDue = new Date(loan.dateDue);
         return (
             <tr key={index+1}>
                 <td> {index+1} </td>
                 <td> {loan.branch} </td>
                 <td> {loan.book} </td>
-                <td> {loan.dateOut.getMonth()+1}/{loan.dateOut.getDate()}/{loan.dateOut.getFullYear()} </td>
+                <td> {dateOut.getMonth()+1}/{dateOut.getDate()}/{dateOut.getFullYear()} </td>
                 <td> 
-                    {loan.dateDue.getMonth()+1}/{loan.dateDue.getDate()}/{loan.dateOut.getFullYear()} {loan.pastDue? <span className="badge badge-danger">Past Due!</span>: null}
+                    {dateDue.getMonth()+1}/{dateDue.getDate()}/{dateOut.getFullYear()} {loan.pastDue? <span className="badge badge-danger">Past Due!</span>: null}
                 </td>
                 <td>
                     <button type="button" className="btn btn-success" 
@@ -23,7 +25,7 @@ const ReturnRender = (props) => {
                             title: `Loan #${index+1} Confirmation`,
                             message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
                             confirmAction: () => {
-                                props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length);
+                                props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, props.pageSize, props.loanData.loans.length);
                                 props.modalActions.hideModal();
                             },
                             close: props.modalActions.hideModal

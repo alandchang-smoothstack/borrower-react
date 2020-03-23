@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
-import { loadState, saveState } from './sessionStorage'
+import { loadState, saveState } from './sessionStorage';
 
 function configureStore() {
   const middlewares = [
@@ -12,10 +12,15 @@ function configureStore() {
 
   let initialState = loadState();
 
+  const enhancers = compose(
+    applyMiddleware(...middlewares),
+    window.devToolsExtension()
+  );
+
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(...middlewares)
+    enhancers
   );
 
   store.subscribe(() => saveState(store.getState()));
