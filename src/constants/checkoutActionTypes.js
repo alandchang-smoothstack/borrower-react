@@ -14,4 +14,4 @@ export const CHANGE_BRANCH = 'CHANGE_BRANCH';
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const CHANGE_SEARCH = 'CHANGE_SEARCH';
 
-export const RESET_STATE = 'RESET_STATE;'
+export const RESET_STATE = 'RESET_STATE';
