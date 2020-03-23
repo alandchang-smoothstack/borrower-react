@@ -112,7 +112,7 @@ const CheckoutRender = (props) => {
 
     return (
         <div className="container">
-            <h1>Checkout</h1>
+            <h1 className="mt-3">Checkout</h1>
             {content}
             <ModalRoot />
         </div>

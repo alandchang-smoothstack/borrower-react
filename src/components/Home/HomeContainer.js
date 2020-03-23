@@ -1,19 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Redirect } from "react-router-dom";
 import HomeRender from './HomeRender';
 
 const HomeContainer = (props) => {
-    return (
-        <div>
-            <HomeRender {...props} />
-        </div>
-    );
+    return (props.loggedIn ? <div><HomeRender {...props} /></div> : <Redirect to="/login" />);
 }
 
 function mapStateToProps(state) {
     return {
-        borrowerName: state.loginReducer.borrower? state.loginReducer.borrower.name: 'User'
+        borrower: state.loginReducer.borrower,
+        loggedIn: state.loginReducer.loggedIn
     }
 }
 

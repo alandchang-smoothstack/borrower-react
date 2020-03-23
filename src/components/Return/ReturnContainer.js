@@ -9,11 +9,14 @@ import * as modalActions from '../../actions/modalActions';
 import ReturnRender from './ReturnRender';
 
 const ReturnContainer = (props) => {
-
+    useEffect(() => {
+        const { actions } = { ...props };
+        return actions.resetState();
+    }, []);
     // use this effect everytime the page changes
     useEffect(() => {
         const { actions } = { ...props };
-        actions.readLoans(props.borrower._id, props.page, 10);
+        actions.readLoans(props.borrower._id, props.page, props.pageSize);
     }, [props.page]);
 
     return (props.loggedIn ? <div><ReturnRender {...props} /></div> : <Redirect to="/login" />);
@@ -22,7 +25,8 @@ const ReturnContainer = (props) => {
 function mapStateToProps(state) {
     return {
         loanData: state.returnReducer.loanData,
-        page: state.returnReducer.page ? state.returnReducer.page : 1,
+        page: state.returnReducer.page,
+        pageSize: state.returnReducer.pageSize,
         loggedIn: state.loginReducer.loggedIn,
         borrower: state.loginReducer.borrower
     };

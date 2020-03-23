@@ -5,7 +5,8 @@ import {
     RETURN_BOOK_FAILURE, 
     RETURN_BOOK_SUCCESSFUL, 
     RETURN_BOOK_PENDING,
-    CHANGE_PAGE
+    CHANGE_PAGE,
+    RESET_STATE
 } from '../constants/returnActionTypes';
 
 const initialState = {
@@ -40,6 +41,8 @@ export default function returnReducer(state = initialState, action) {
             return { ...state, loanData: { requestPending: true } };
         case CHANGE_PAGE:
             return { ...state, page: action.page}
+        case RESET_STATE:
+            return initialState;
         default:
             return state;
     }
