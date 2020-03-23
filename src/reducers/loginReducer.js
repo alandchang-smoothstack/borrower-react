@@ -15,7 +15,7 @@ export default function loginReducer(state = {}, action) {
         case LOGIN_INPUT_CHANGE:
             return { ...state, loginId: action.data }
         case LOG_OUT_SUCCESSFUL:
-            return { ...state, loggedIn: false, borrower: undefined }
+            return { ...state, loggedIn: false, borrower: undefined, loginId: '' }
         default:
             return state;
     }

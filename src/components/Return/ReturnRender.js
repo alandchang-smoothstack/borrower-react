@@ -25,7 +25,7 @@ const ReturnRender = (props) => {
                                 title: `Loan #${index + 1} Confirmation`,
                                 message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
                                 confirmAction: () => {
-                                    props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length);
+                                    props.actions.returnBook(loan.id, props.borrower._id, props.page, 10, props.loanData.loans.length);
                                     props.modalActions.hideModal();
                                 },
                                 close: props.modalActions.hideModal

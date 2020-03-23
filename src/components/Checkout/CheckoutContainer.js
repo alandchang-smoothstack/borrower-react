@@ -28,7 +28,8 @@ const CheckoutContainer = props => {
 const mapStateToProps = state => {
     return {
         checkoutData: state.checkoutReducer.checkoutData,
-        loggedIn: state.loginReducer.loggedIn
+        loggedIn: state.loginReducer.loggedIn,
+        borrower: state.loginReducer.borrower
     }
 }
 

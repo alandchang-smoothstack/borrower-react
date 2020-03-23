@@ -54,7 +54,6 @@ export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
 }
 
 export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
-    borrowerId = '5e66949385ed682e1800f4a2';
     return dispatch => {
         dispatch(_checkoutBookStarted());
         return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
