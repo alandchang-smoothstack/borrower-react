@@ -10,11 +10,14 @@ import './signUp.css'
 
 
 const SignUpContainer = (props) => {
+    useEffect(() => {
+        const { actions } = { ...props };
+        return actions.resetState();
+    }, []);
     return (props.loggedIn ? <Redirect to="/home" /> : <div><SignUpRender {...props} /></div>);
 };
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         name: (state.signUpReducer.username ? state.signUpReducer.username : ''),
         phone: (state.signUpReducer.userphone ? state.signUpReducer.userphone : ''),

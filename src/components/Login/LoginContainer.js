@@ -11,6 +11,7 @@ import LoginRender from './LoginRender';
 const LoginContainer = (props) => {
     useEffect(() => {
         const { actions } = { ...props };
+        return actions.resetState();
     }, []);
 
     return (props.loggedIn ? <Redirect to="/home" /> : <div><LoginRender {...props} /></div>)

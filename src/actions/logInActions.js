@@ -5,7 +5,8 @@ import {
     LOGIN_ATTEMPT_PENDING,
     LOGIN_ATTEMPT_SUCCESSFUL,
     LOGIN_INPUT_CHANGE,
-    LOG_OUT_SUCCESSFUL
+    LOG_OUT_SUCCESSFUL,
+    RESET_STATE
 } from '../constants/loginActionTypes';
 
 export const login = (borrowerId) => {
@@ -25,6 +26,18 @@ export const login = (borrowerId) => {
     };
 
 };
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
+    }
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState());
+    }
+}
 
 export const logOut = () => {
     return {
