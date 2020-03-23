@@ -8,6 +8,7 @@ import CheckoutContainer from './Checkout/CheckoutContainer';
 import SignUpContainer from './SignUp/SignUpContainer';
 import ReturnContainer from './Return/ReturnContainer';
 import HomeContainer from './Home/HomeContainer';
+import pageNotFound from './pageNotFound'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/return' component={ReturnContainer} />
           <Route path='/' component={HomeContainer} />
+          <Route path='*' component={pageNotFound} />
         </Switch>
       </HashRouter>
     </div>
