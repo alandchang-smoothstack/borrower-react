@@ -8,7 +8,16 @@ export const loadState = () => {
             return undefined;
         }
 
-        return JSON.parse(serializedState);
+        let parsedState = JSON.parse(serializedState);
+
+        if (parsedState.returnReducer.loanData && parsedState.returnReducer.loanData.loans) {
+            parsedState.returnReducer.loanData.loans.forEach(loans => {
+                loans.dateOut = new Date(loans.dateOut);
+                loans.dateDue = new Date(loans.dateDue);
+            });
+        }
+
+        return parsedState;
     } catch (error) {
         return undefined;
     }
@@ -16,6 +25,7 @@ export const loadState = () => {
 
 export const saveState = (state) => {
     try {
+        console.log(state);
         const serializedState = JSON.stringify(state);
         sessionStorage.setItem('state', serializedState);
     } catch (error) {
