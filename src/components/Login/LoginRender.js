@@ -6,14 +6,14 @@ const LoginRender = (props) => {
 
     return (
         <div>
-            <img id="lmsLogo" width="315px" src={logo} />
+            <img id="lmsLogo" width="315px" src={logo} alt="LMS LOGO" />
 
             <div id="login">
                 <div className="container">
                     <div id="login-row" className="row justify-content-center align-items-center">
                         <div id="login-column" className="col-md-6">
                             <div id="login-box" className="col-md-12">
-                                <form id="login-form" onSubmit={(event) => { props.actions.login(props.loginId); console.log(event) }}>
+                                <form id="login-form" onSubmit={(event) => { props.actions.login(props.loginId); event.preventDefault(); }}>
                                     <h3 id="login-title">Login</h3>
                                     {(props.status && props.status.loginFailure) ? <label id="loginFailure" >Login Failure<br></br></label> : <br></br>}
                                     <label>BorrowerId: <input type="text" value={props.loginId} onChange={(event) => { props.actions.loginIdChange(event.target.value); console.log(props) }} required></input></label>

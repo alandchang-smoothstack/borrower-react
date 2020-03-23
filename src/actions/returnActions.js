@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { 
-    READ_LOANS_FAILURE, 
-    READ_LOANS_PENDING, 
-    READ_LOANS_SUCCESSFUL, 
-    RETURN_BOOK_FAILURE, 
-    RETURN_BOOK_SUCCESSFUL, 
+import {
+    READ_LOANS_FAILURE,
+    READ_LOANS_PENDING,
+    READ_LOANS_SUCCESSFUL,
+    RETURN_BOOK_FAILURE,
+    RETURN_BOOK_SUCCESSFUL,
     RETURN_BOOK_PENDING,
     CHANGE_PAGE
 } from '../constants/returnActionTypes';
@@ -37,7 +37,7 @@ export const returnBook = (loanId, cardNo, page, pageSize, numLoans) => {
             .then(() => {
                 dispatch(_returnBookSuccess());
                 if (numLoans === 1 && page > 1) {
-                    changePage(page-1)(dispatch);
+                    changePage(page - 1)(dispatch);
                 } else {
                     readLoans(cardNo, page, pageSize)(dispatch);
                 }
@@ -66,12 +66,12 @@ const _readLoansFailure = (err) => {
     return {
         type: READ_LOANS_FAILURE,
         err
-    };   
+    };
 }
 
 const _returnBookStarted = () => {
     return {
-      type: RETURN_BOOK_PENDING  
+        type: RETURN_BOOK_PENDING
     };
 }
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from "react-router-dom";
 
 import * as signUpActions from '../../actions/signUpActions';
 import SignUpRender from './SignUpRender';
@@ -9,11 +10,7 @@ import './signUp.css'
 
 
 const SignUpContainer = (props) => {
-    return (
-        <div>
-            <SignUpRender {...props} />
-        </div>
-    );
+    return (props.loggedIn ? <Redirect to="/home" /> : <div><SignUpRender {...props} /></div>);
 };
 
 function mapStateToProps(state) {
@@ -22,7 +19,8 @@ function mapStateToProps(state) {
         name: (state.signUpReducer.username ? state.signUpReducer.username : ''),
         phone: (state.signUpReducer.userphone ? state.signUpReducer.userphone : ''),
         address: (state.signUpReducer.useraddress ? state.signUpReducer.useraddress : ''),
-        status: state.signUpReducer.status
+        status: state.signUpReducer.status,
+        loggedIn: state.loginReducer.loggedIn
     }
 };
 

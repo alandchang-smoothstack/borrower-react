@@ -5,7 +5,6 @@ import './App.css';
 import LoginContainer from './Login/LoginContainer'
 import NavbarContainer from './Navbar/NavbarContainer';
 import CheckoutContainer from './Checkout/CheckoutContainer';
-import LoginContainer from './Login/LoginContainer';
 import SignUpContainer from './SignUp/SignUpContainer';
 import ReturnContainer from './Return/ReturnContainer';
 import Home from './Home';
