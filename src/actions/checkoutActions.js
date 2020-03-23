@@ -20,7 +20,7 @@ import {
 export const readBranches = () => {
     return dispatch => {
         dispatch(_readBranchesStarted());
-        return axios.get(`http://localhost:3000/branches`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/branches`)
             .then(res => {
                 dispatch(_readBranchesSuccess(res));
             })
@@ -33,7 +33,7 @@ export const readBranches = () => {
 
 export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
     return dispatch => {
-        let url = `http://localhost:3000/branches/${branchId}/copies`;
+        let url = `${process.env.REACT_APP_API_URL}/branches/${branchId}/copies`;
         let query = [];
         if (searchString && searchString.length) query.push(`title=${searchString}`);
         if (pageIndex >= 0) query.push(`page=${pageIndex + 1}`);
@@ -58,7 +58,7 @@ export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
     borrowerId = '5e66949385ed682e1800f4a2';
     return dispatch => {
         dispatch(_checkoutBookStarted());
-        return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
+        return axios.post(`${process.env.REACT_APP_API_URL}/loans`, { borrowerId, branchId, bookId })
             .then(() => {
                 dispatch(_checkoutBookSuccess({ data: index }));
             })
