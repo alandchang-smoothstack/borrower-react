@@ -20,7 +20,7 @@ export default function signUpReducer(state = {}, action) {
         case SIGN_UP_ADDRESS_INPUT:
             return { ...state, useraddress: action.data };
         case RESET_STATE:
-            return { ...state, userphone: '', username: '', useraddress: '' }
+            return { ...state, status: undefined, userphone: '', username: '', useraddress: '' }
         default:
             return state;
     }

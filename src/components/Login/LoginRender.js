@@ -15,13 +15,18 @@ const LoginRender = (props) => {
                             <div id="login-box" className="col-md-12">
                                 <form id="login-form" onSubmit={(event) => { props.actions.login(props.loginId); event.preventDefault(); }}>
                                     <h3 id="login-title" className="mt-2">Login</h3>
-                                    {(props.status && props.status.loginFailure) ? <div className="alert alert-danger" role="alert">Login Failure!</div>: <br></br>}
+                                    {(props.status && props.status.loginFailure) ? <div className="alert alert-danger" role="alert">Login Failure!</div> : <br></br>}
                                     <div className="form-group">
-                                        <label for="cardno">Card Number</label>
+                                        <label htmlFor="cardno">Card Number</label>
                                         <input type="text" id="cardno" className="form-control" value={props.loginId} onChange={(event) => { props.actions.loginIdChange(event.target.value); }} required></input>
                                     </div>
-                                    <input className="btn btn-primary" type="submit" value="Submit" /><br></br>
                                     <label className="link"><a href="#/signup">Sign Up Here</a></label>
+                                    <input className="btn btn-primary" type="submit" value="Submit" /><br></br>
+                                    {(props.status && props.status.loginPending) ? <div id="loadingSpinner">
+                                        <div className="spinner-border text-success" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                    </div> : null}
                                 </form>
                             </div>
                         </div>
