@@ -10,7 +10,7 @@ const CheckoutRender = (props) => {
 
     function createCopyRow(copy, index) {
         return (
-            <tr key={index + 1}>
+            <tr key={index}>
                 <td className="align-middle"> {index + 1} </td>
                 <td className="align-middle"> {copy.book.title} </td>
                 <td className="align-middle"> {copy.book.authors.map(a => a.name).reduce((a, b) => { return a + ', ' + b })}</td>
@@ -20,8 +20,8 @@ const CheckoutRender = (props) => {
                 <td><button type="button" className="btn btn-primary" onClick={() => {
                     props.modalActions.showModal({
                         open: true,
-                        title: `Book #${index + 1}`,
-                        message: `Are you sure you want to checkout ${copy.book.title}?`,
+                        title: `Book #${index + 1} Confirmation`,
+                        message: `Are you sure you want to checkout ${copy.book.title} from ${copy.branch.name}?`,
                         confirmAction: () => {
                             props.actions.checkoutBook({
                                 index: index,
