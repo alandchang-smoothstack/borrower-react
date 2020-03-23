@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from "react-router-dom";
 
 import * as checkoutActions from '../../actions/checkoutActions';
 import CheckoutRender from './CheckoutRender';
@@ -12,6 +13,7 @@ const CheckoutContainer = props => {
     useEffect(() => {
         const { actions } = { ...props };
         actions.readBranches();
+        return actions.resetState();
     }, []);
     useEffect(() => {
         if (props.checkoutData.branchIndex >= 0 && props.checkoutData.pageIndex >= 0 && props.checkoutData.pageSize >= 0) {
@@ -19,18 +21,16 @@ const CheckoutContainer = props => {
             const { branchList, branchIndex, searchString, pageIndex, pageSize } = { ...props.checkoutData };
             actions.readCopies(branchList[branchIndex]._id, { searchString, pageIndex, pageSize });
         }
-    }, [props.checkoutData.branchIndex, props.checkoutData.pageIndex, props.checkoutData.pageSize, props.checkoutData.searchString]);
+    }, [props.checkoutData.branchIndex, props.checkoutData.searchString, props.checkoutData.pageIndex, props.checkoutData.pageSize]);
 
-    return (
-        <div>
-            <CheckoutRender {...props} />
-        </div>
-    );
+    return (props.loggedIn ? <div><CheckoutRender {...props} /></div> : <Redirect to="/login" />);
 }
 
 const mapStateToProps = state => {
     return {
-        checkoutData: state.checkoutReducer.checkoutData
+        checkoutData: state.checkoutReducer.checkoutData,
+        loggedIn: state.loginReducer.loggedIn,
+        borrower: state.loginReducer.borrower
     }
 }
 

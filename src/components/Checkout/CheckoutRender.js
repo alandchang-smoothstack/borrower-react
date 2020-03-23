@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate';
 import ModalRoot from '../Modal/ModalContainer';
 
 const CheckoutRender = (props) => {
-    console.log(props);
     function createBranchOption(branch, index) {
         return <option key={index} value={index}>{branch.name}</option>;
     }
@@ -26,7 +25,7 @@ const CheckoutRender = (props) => {
                         confirmAction: () => {
                             props.actions.checkoutBook({
                                 index: index,
-                                borrowerId: '',
+                                borrowerId: props.borrower._id,
                                 branchId: copy.branch._id,
                                 bookId: copy.book._id
                             }); props.modalActions.hideModal();
@@ -62,7 +61,7 @@ const CheckoutRender = (props) => {
                     </div>
                     <div className="form-group">
                         <label>Search for a book:</label>
-                        <input className="form-control" type="text" onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
+                        <input className="form-control" type="text" value={props.checkoutData.searchString} onChange={(event) => { props.actions.changeSearch(event.target.value); props.actions.changePage(0); }} />
                     </div>
                     <table className="table table-striped">
                         <thead className="thead-dark">

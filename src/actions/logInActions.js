@@ -4,7 +4,8 @@ import {
     LOGIN_ATTEMPT_FAILURE,
     LOGIN_ATTEMPT_PENDING,
     LOGIN_ATTEMPT_SUCCESSFUL,
-    LOGIN_INPUT_CHANGE
+    LOGIN_INPUT_CHANGE,
+    LOG_OUT_SUCCESSFUL
 } from '../constants/loginActionTypes';
 
 export const login = (borrowerId) => {
@@ -24,6 +25,12 @@ export const login = (borrowerId) => {
     };
 
 };
+
+export const logOut = () => {
+    return {
+        type: LOG_OUT_SUCCESSFUL
+    }
+}
 
 export const loginIdChange = (inputData) => {
     return {

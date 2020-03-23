@@ -13,7 +13,8 @@ import {
     CHECKOUT_BOOK_FAILURE,
     CHANGE_BRANCH,
     CHANGE_PAGE,
-    CHANGE_SEARCH
+    CHANGE_SEARCH,
+    RESET_STATE
 } from '../constants/checkoutActionTypes';
 
 export const readBranches = () => {
@@ -54,7 +55,6 @@ export const readCopies = (branchId, { searchString, pageIndex, pageSize }) => {
 }
 
 export const checkoutBook = ({ index, borrowerId, branchId, bookId }) => {
-    borrowerId = '5e66949385ed682e1800f4a2';
     return dispatch => {
         dispatch(_checkoutBookStarted());
         return axios.post(`http://localhost:3000/loans`, { borrowerId, branchId, bookId })
@@ -83,6 +83,12 @@ export const changePage = (pageIndex) => {
 export const changeSearch = (searchString) => {
     return dispatch => {
         dispatch(_changeSearch(searchString));
+    };
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState());
     };
 }
 
@@ -164,5 +170,11 @@ const _changeSearch = (searchString) => {
     return {
         type: CHANGE_SEARCH,
         data: searchString
+    };
+}
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
     };
 }
