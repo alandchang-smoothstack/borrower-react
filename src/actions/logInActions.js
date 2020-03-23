@@ -5,13 +5,14 @@ import {
     LOGIN_ATTEMPT_PENDING,
     LOGIN_ATTEMPT_SUCCESSFUL,
     LOGIN_INPUT_CHANGE,
-    LOG_OUT_SUCCESSFUL
+    LOG_OUT_SUCCESSFUL,
+    RESET_STATE
 } from '../constants/loginActionTypes';
 
 export const login = (borrowerId) => {
     return dispatch => {
         dispatch(_loginStarted());
-        return axios.get(`http://localhost:3000/borrowers/${borrowerId}`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/borrowers/${borrowerId}`)
             .then(res => {
                 if (res.data.name) {
                     dispatch(_loginSuccessful(res.data));
@@ -25,6 +26,18 @@ export const login = (borrowerId) => {
     };
 
 };
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
+    }
+}
+
+export const resetState = () => {
+    return dispatch => {
+        dispatch(_resetState());
+    }
+}
 
 export const logOut = () => {
     return {

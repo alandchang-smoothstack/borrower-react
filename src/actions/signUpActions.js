@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
     SIGN_UP_FAILURE, SIGN_UP_SUCCESSFUL,
     SIGN_UP_PENDING, SIGN_UP_PHONE_INPUT,
-    SIGN_UP_NAME_INPUT, SIGN_UP_ADDRESS_INPUT
+    SIGN_UP_NAME_INPUT, SIGN_UP_ADDRESS_INPUT,
+    RESET_STATE
 } from '../constants/signUpActionTypes';
 
 import { LOGIN_ATTEMPT_SUCCESSFUL } from '../constants/loginActionTypes';
@@ -16,7 +17,7 @@ export const signUp = (nameIn, phoneIn, addressIn) => {
             phone: phoneIn,
             address: addressIn
         }
-        return axios.post(`http://localhost:3000/borrowers/`, borrower)
+        return axios.post(`${process.env.REACT_APP_API_URL}/borrowers/`, borrower)
             .then(res => {
                 if (res.data._id) {
                     dispacth(_signUpSuccessful(res.data));
@@ -30,6 +31,19 @@ export const signUp = (nameIn, phoneIn, addressIn) => {
             })
     }
 }
+
+const _resetState = () => {
+    return {
+        type: RESET_STATE
+    }
+}
+
+export const resetState = () => {
+    return dispacth => {
+        dispacth(_resetState());
+    }
+}
+
 
 export const inputName = (newData) => {
     return {
