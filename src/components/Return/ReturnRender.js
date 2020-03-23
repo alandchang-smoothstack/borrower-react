@@ -16,14 +16,14 @@ const ReturnRender = (props) => {
                     {loan.dateDue.getMonth() + 1}/{loan.dateDue.getDate()}/{loan.dateDue.getFullYear()} {loan.pastDue ? <span className="badge badge-danger">Past Due!</span> : null}
                 </td>
                 <td>
-                    <button type="button" className="btn btn-success"
+                    <button type="button" className="btn btn-primary"
                         onClick={() => {
                             props.modalActions.showModal({
                                 open: true,
                                 title: `Loan #${index + 1} Confirmation`,
                                 message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
                                 confirmAction: () => {
-                                    props.actions.returnBook(loan.id, props.borrower._id, props.page, 10, props.loanData.loans.length);
+                                    props.actions.returnBook(loan.id, props.borrower._id, props.page, props.pageSize, props.loanData.loans.length);
                                     props.modalActions.hideModal();
                                 },
                                 close: props.modalActions.hideModal
@@ -50,6 +50,21 @@ const ReturnRender = (props) => {
     if (props.loanData && props.loanData.requestSuccessful) {
         content = (
             <div className="mt-3">
+                <table className="table table-striped">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Branch</th>
+                            <th>Book</th>
+                            <th>Date Out</th>
+                            <th>Date Due</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, (props.page - 1) * 10 + index))}
+                    </tbody>
+                </table>
                 <ReactPaginate
                     forcePage={props.page ? props.page - 1 : 0}
                     previousLabel={'<'}
@@ -68,21 +83,6 @@ const ReturnRender = (props) => {
                     previousLinkClassName={'page-link'}
                     activeClassName={'active'}
                 />
-                <table className="table table-striped">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>Branch</th>
-                            <th>Book</th>
-                            <th>Date Out</th>
-                            <th>Date Due</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, (props.page - 1) * 10 + index))}
-                    </tbody>
-                </table>
             </div>
         );
     }

@@ -7,7 +7,7 @@ const NavbarRender = (props) => {
         : null;
     return (
         <nav className="navbar navbar-dark bg-dark justify-content-between">
-            <a className="navbar-brand" href="/#/home">HOME</a>
+            <a className="navbar-brand" href="/#/home">Borrower</a>
             {logoutButton}
         </nav>
     );
