@@ -16,7 +16,7 @@ const NavbarContainer = (props) => {
 
 function mapStateToProps(state) {
     return {
-        loginStatus: state.loginReducer.status
+        loggedIn: state.loginReducer.loggedIn
     }
 };
 

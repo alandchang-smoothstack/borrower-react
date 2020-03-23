@@ -9,7 +9,7 @@ export default function signUpReducer(state = {}, action) {
         case SIGN_UP_FAILURE:
             return { ...state, status: { signUpFailure: true } };
         case SIGN_UP_SUCCESSFUL:
-            return { ...state, status: { signUpSuccessful: true } };
+            return { ...state, status: { signUpSuccessful: true }, userphone: '', username: '', useraddress: '' };
         case SIGN_UP_PENDING:
             return { ...state, status: { signUpPending: true } };
         case SIGN_UP_PHONE_INPUT:

@@ -26,7 +26,7 @@ const CheckoutRender = (props) => {
                         confirmAction: () => {
                             props.actions.checkoutBook({
                                 index: index,
-                                borrowerId: '',
+                                borrowerId: props.borrower._id,
                                 branchId: copy.branch._id,
                                 bookId: copy.book._id
                             }); props.modalActions.hideModal();

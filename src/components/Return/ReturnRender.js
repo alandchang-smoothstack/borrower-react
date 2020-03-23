@@ -6,29 +6,31 @@ import ModalRoot from '../Modal/ModalContainer';
 const ReturnRender = (props) => {
 
     function createLoanRow(loan, index) {
+        let dateOut = new Date(loan.dateOut);
+        let dateDue = new Date(loan.dateDue);
         return (
-            <tr key={index+1}>
-                <td> {index+1} </td>
+            <tr key={index + 1}>
+                <td> {index + 1} </td>
                 <td> {loan.branch} </td>
                 <td> {loan.book} </td>
-                <td> {loan.dateOut.getMonth()+1}/{loan.dateOut.getDate()}/{loan.dateOut.getFullYear()} </td>
-                <td> 
-                    {loan.dateDue.getMonth()+1}/{loan.dateDue.getDate()}/{loan.dateOut.getFullYear()} {loan.pastDue? <span className="badge badge-danger">Past Due!</span>: null}
+                <td> {dateOut.getMonth() + 1}/{dateOut.getDate()}/{dateOut.getFullYear()} </td>
+                <td>
+                    {dateDue.getMonth() + 1}/{dateDue.getDate()}/{dateDue.getFullYear()} {loan.pastDue ? <span className="badge badge-danger">Past Due!</span> : null}
                 </td>
                 <td>
-                    <button type="button" className="btn btn-success" 
-                    onClick={() => {
-                        props.modalActions.showModal({
-                            open: true,
-                            title: `Loan #${index+1} Confirmation`,
-                            message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
-                            confirmAction: () => {
-                                props.actions.returnBook(loan.id, '5e66949385ed682e1800f4a2', props.page, 10, props.loanData.loans.length);
-                                props.modalActions.hideModal();
-                            },
-                            close: props.modalActions.hideModal
-                        }, 'confirm');
-                    }}>
+                    <button type="button" className="btn btn-success"
+                        onClick={() => {
+                            props.modalActions.showModal({
+                                open: true,
+                                title: `Loan #${index + 1} Confirmation`,
+                                message: `Are you sure you want to return ${loan.book} to ${loan.branch}?`,
+                                confirmAction: () => {
+                                    props.actions.returnBook(loan.id, props.borrower._id, props.page, 10, props.loanData.loans.length);
+                                    props.modalActions.hideModal();
+                                },
+                                close: props.modalActions.hideModal
+                            }, 'confirm');
+                        }}>
                         Return Book
                     </button>
                 </td>
@@ -51,22 +53,22 @@ const ReturnRender = (props) => {
         content = (
             <div className="mt-3">
                 <ReactPaginate
-                forcePage={props.page? props.page-1: 0}
-                previousLabel={'<'}
-                nextLabel={'>'}
-                breakLabel={'...'}
-                pageCount={Math.ceil(props.loanData.numLoans/10)}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={10}
-                onPageChange={ (page) => { props.actions.changePage(page.selected+1) } }
-                containerClassName={'pagination'}
-                pageClassName={'page-item'}
-                nextClassName={'page-item'}
-                previousClassName={'page-item'}
-                pageLinkClassName={'page-link'}
-                nextLinkClassName={'page-link'}
-                previousLinkClassName={'page-link'}
-                activeClassName={'active'}
+                    forcePage={props.page ? props.page - 1 : 0}
+                    previousLabel={'<'}
+                    nextLabel={'>'}
+                    breakLabel={'...'}
+                    pageCount={Math.ceil(props.loanData.numLoans / 10)}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={10}
+                    onPageChange={(page) => { props.actions.changePage(page.selected + 1) }}
+                    containerClassName={'pagination'}
+                    pageClassName={'page-item'}
+                    nextClassName={'page-item'}
+                    previousClassName={'page-item'}
+                    pageLinkClassName={'page-link'}
+                    nextLinkClassName={'page-link'}
+                    previousLinkClassName={'page-link'}
+                    activeClassName={'active'}
                 />
                 <table className="table table-striped">
                     <thead className="thead-dark">
@@ -80,7 +82,7 @@ const ReturnRender = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, (props.page-1)*10+index))}
+                        {props.loanData.loans.map((loan, index) => createLoanRow(loan, (props.page - 1) * 10 + index))}
                     </tbody>
                 </table>
             </div>
