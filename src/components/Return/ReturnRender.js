@@ -6,16 +6,14 @@ import ModalRoot from '../Modal/ModalContainer';
 const ReturnRender = (props) => {
 
     function createLoanRow(loan, index) {
-        let dateOut = new Date(loan.dateOut);
-        let dateDue = new Date(loan.dateDue);
         return (
             <tr key={index + 1}>
                 <td> {index + 1} </td>
                 <td> {loan.branch} </td>
                 <td> {loan.book} </td>
-                <td> {dateOut.getMonth() + 1}/{dateOut.getDate()}/{dateOut.getFullYear()} </td>
+                <td> {loan.dateOut.getMonth() + 1}/{loan.dateOut.getDate()}/{loan.dateOut.getFullYear()} </td>
                 <td>
-                    {dateDue.getMonth() + 1}/{dateDue.getDate()}/{dateDue.getFullYear()} {loan.pastDue ? <span className="badge badge-danger">Past Due!</span> : null}
+                    {loan.dateDue.getMonth() + 1}/{loan.dateDue.getDate()}/{loan.dateDue.getFullYear()} {loan.pastDue ? <span className="badge badge-danger">Past Due!</span> : null}
                 </td>
                 <td>
                     <button type="button" className="btn btn-primary"

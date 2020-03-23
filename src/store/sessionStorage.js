@@ -8,7 +8,16 @@ export const loadState = () => {
             return undefined;
         }
 
-        return JSON.parse(serializedState);
+        let parsedState = JSON.parse(serializedState);
+
+        if (parsedState.returnReducer.loanData && parsedState.returnReducer.loanData.loans) {
+            parsedState.returnReducer.loanData.loans.forEach(loans => {
+                loans.dateOut = new Date(loans.dateOut);
+                loans.dateDue = new Date(loans.dateDue);
+            });
+        }
+
+        return parsedState;
     } catch (error) {
         return undefined;
     }

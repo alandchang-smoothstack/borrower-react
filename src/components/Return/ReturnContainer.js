@@ -16,7 +16,8 @@ const ReturnContainer = (props) => {
     // use this effect everytime the page changes
     useEffect(() => {
         const { actions } = { ...props };
-        actions.readLoans(props.borrower._id, props.page, props.pageSize);
+        if (props.loggedIn)
+            actions.readLoans(props.borrower._id, props.page, props.pageSize);
     }, [props.page]);
 
     return (props.loggedIn ? <div><ReturnRender {...props} /></div> : <Redirect to="/login" />);
