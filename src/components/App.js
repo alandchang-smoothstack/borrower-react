@@ -21,6 +21,7 @@ function App() {
           <Route path='/home' component={HomeContainer} />
           <Route path='/checkout' component={CheckoutContainer} />
           <Route path='/return' component={ReturnContainer} />
+          <Route path='/' component={HomeContainer} />
           <Route path='*' component={pageNotFound} />
         </Switch>
       </HashRouter>
