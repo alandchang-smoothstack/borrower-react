@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import Link from 'react-router-dom';
 import checkoutImg from '../../assets/img/checkoutBook.jpg';
 import returnImg from '../../assets/img/returnBook.jpg';
 

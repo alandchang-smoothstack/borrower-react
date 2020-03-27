@@ -8,22 +8,17 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap-css-only": "^4.4.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
     "react-modal": "^3.11.2",
     "react-paginate": "^6.3.2",
-    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "redux": "^4.0.5",
     "redux-immutable-state-invariant": "^2.1.0",
-    "redux-thunk": "^2.3.0",
     "sessionstorage": "^0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +36,35 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^24.9.0",
+    "moment": "^2.24.0",
+    "nock": "^12.0.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-test-renderer": "^16.13.1",
+    "redux": "^4.0.5",
+    "redux-mock-store": "^1.5.4",
+    "redux-thunk": "^2.3.0",
+    "sinon": "^9.0.1"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js",
+    "moduleNameMapper": {
+      "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/mocks/fileMock.js"
+    }
+  }
 }

@@ -106,7 +106,9 @@ const ReturnRender = (props) => {
 }
 
 ReturnRender.propTypes = {
-    loanData: PropTypes.object
+    loanData: PropTypes.object,
+    actions: PropTypes.object,
+    modalActions: PropTypes.object
 };
 
 export default ReturnRender;
